@@ -153,15 +153,11 @@ function Login() {
                 }`}
               />
               {showError("password") && (
-                <p className="mt-1 text-xs text-red-500">
-                  {errors.password}
-                </p>
+                <p className="mt-1 text-xs text-red-500">{errors.password}</p>
               )}
               <button
                 type="button"
-                onClick={() =>
-                  alert("Forgot password feature coming soon!")
-                }
+                onClick={() => alert("Forgot password feature coming soon!")}
                 className="mt-2 flex w-full justify-end text-sm font-semibold text-orange-500 hover:text-orange-600"
               >
                 Forgot Password?

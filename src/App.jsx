@@ -1,9 +1,4 @@
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import Sign from "./components/sign";
 import Login from "./components/login";
@@ -17,14 +12,8 @@ function App() {
     <BrowserRouter>
       <div className="min-h-screen bg-[#F5F1EA]">
         <Routes>
+          <Route path="/" element={<Navigate to="/login" replace />} />
 
-          {/* Default */}
-          <Route
-            path="/"
-            element={<Navigate to="/login" replace />}
-          />
-
-          {/* Login */}
           <Route
             path="/login"
             element={
@@ -35,7 +24,6 @@ function App() {
             }
           />
 
-          {/* Sign Up */}
           <Route
             path="/sign"
             element={
@@ -46,7 +34,6 @@ function App() {
             }
           />
 
-          {/* Protected Menu */}
           <Route
             path="/menu"
             element={
@@ -57,7 +44,6 @@ function App() {
             }
           />
 
-          {/* Protected Orders */}
           <Route
             path="/orders"
             element={
@@ -67,7 +53,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-
         </Routes>
       </div>
     </BrowserRouter>

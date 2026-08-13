@@ -59,13 +59,9 @@ function Menu() {
   );
 
   const sidesTotal = sides.reduce((total, side) => total + sidePrices[side], 0);
-
   const pricePerPizza = pizzaPrices[size] + crustPrices[crust] + toppingTotal;
-
   const subtotal = pricePerPizza * quantity + sidesTotal;
-
   const deliveryFee = subtotal >= 499 ? 0 : 40;
-
   const total = subtotal + deliveryFee;
 
   const handleQuantity = (type) => {
@@ -99,11 +95,8 @@ function Menu() {
 
     const existingOrders =
       JSON.parse(localStorage.getItem("pizzaOrders")) || [];
-
     const updatedOrders = [newOrder, ...existingOrders];
-
     localStorage.setItem("pizzaOrders", JSON.stringify(updatedOrders));
-
     setOrderPlaced(true);
   };
 
