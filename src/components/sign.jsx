@@ -32,8 +32,6 @@ function Sign() {
       errors.name = "Please enter your name";
     } else if (!NAME_REGEX.test(values.name.trim())) {
       errors.name = "Name must contain only letters and spaces";
-    } else if (values.name.trim().length < 2) {
-      errors.name = "Name must contain at least 2 characters";
     }
 
     if (!values.email.trim()) {
@@ -70,7 +68,6 @@ function Sign() {
     if (!values.terms) {
       errors.terms = "Please agree to the terms and conditions";
     }
-
     return errors;
   };
 

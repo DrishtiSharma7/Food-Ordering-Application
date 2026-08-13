@@ -57,7 +57,7 @@ function Navbar() {
                 onClick={() => navigate("/login")}
                 className="rounded-full p-2 text-orange-500 transition hover:bg-orange-100 hover:text-gray-800"
               >
-                <User size={27} />
+                LogOut
               </button>
 
               <button
