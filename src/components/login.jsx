@@ -39,7 +39,7 @@ function Login() {
     alert("Login successful!");
 
     // Go to Home
-    navigate("/home");
+    navigate("/menu");
   };
 
   return (
