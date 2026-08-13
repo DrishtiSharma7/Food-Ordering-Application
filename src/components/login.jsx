@@ -36,9 +36,37 @@ function Login() {
       return;
     }
 
+    // Get registered user
+    const registeredUser = JSON.parse(
+      localStorage.getItem("registeredUser")
+    );
+
+    // No signup
+    if (!registeredUser) {
+      alert("No account found. Please sign up first.");
+      navigate("/sign");
+      return;
+    }
+
+    // Email check
+    if (email !== registeredUser.email) {
+      alert(
+        "This email is not registered. Please sign up first."
+      );
+      return;
+    }
+
+    // Password check
+    if (password !== registeredUser.password) {
+      alert("Incorrect password. Please try again.");
+      return;
+    }
+
+    // Login successful
+    localStorage.setItem("isLoggedIn", "true");
+
     alert("Login successful!");
 
-    // Go to Home
     navigate("/menu");
   };
 
@@ -108,7 +136,9 @@ function Login() {
 
               <button
                 type="button"
-                onClick={() => alert("Forgot password feature coming soon!")}
+                onClick={() =>
+                  alert("Forgot password feature coming soon!")
+                }
                 className="mt-2 flex w-full justify-end text-sm font-semibold text-orange-500 hover:text-orange-600"
               >
                 Forgot Password?
@@ -135,15 +165,14 @@ function Login() {
             {/* Login Button */}
             <button
               type="submit"
-              className="flex items- justify-center mt-4 w-full rounded-xl bg-orange-500 py-2.5 text-lg font-semibold text-white shadow-md shadow-orange-200 transition-all duration-200 hover:bg-orange-600 hover:shadow-lg hover:shadow-orange-200 active:scale-[0.98]"
+              className="mt-4 flex w-full items-center justify-center rounded-xl bg-orange-500 py-2.5 text-lg font-semibold text-white shadow-md shadow-orange-200 transition-all duration-200 hover:bg-orange-600 hover:shadow-lg hover:shadow-orange-200 active:scale-[0.98]"
             >
               Login →
             </button>
 
-            {/* Sign Up Navigation */}
+            {/* Sign Up */}
             <p className="pt-2 text-center text-sm text-gray-600">
               Don't have an account?{" "}
-
               <button
                 type="button"
                 onClick={() => navigate("/sign")}

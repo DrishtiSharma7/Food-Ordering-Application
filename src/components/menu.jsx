@@ -110,7 +110,6 @@ function Menu() {
   return (
     <div className="min-h-screen w-full overflow-x-hidden bg-[#F5F1EA] px-3 py-4 sm:px-4 sm:py-6 md:px-6 lg:px-10">
       <div className="mx-auto w-full max-w-7.5xl">
-        {/* Success Message */}
         {orderPlaced && (
           <div className="mb-5 rounded-xl border border-green-200 bg-green-50 p-4 text-center sm:mb-6">
             <h2 className="text-base font-bold text-green-700 sm:text-lg">
@@ -123,11 +122,8 @@ function Menu() {
           </div>
         )}
 
-        {/* Main Layout */}
         <div className="grid grid-cols-1 gap-5 sm:gap-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-8">
-          {/* LEFT SIDE */}
           <div className="min-w-0 space-y-5 sm:space-y-6">
-            {/* Pizza Size */}
             <section className="rounded-2xl bg-white p-4 shadow-sm sm:p-5 md:p-6">
               <h2 className="mb-4 text-lg font-bold text-[#1F2937] sm:text-xl">
                 Choose Pizza Size
@@ -153,7 +149,6 @@ function Menu() {
               </div>
             </section>
 
-            {/* Crust */}
             <section className="rounded-2xl bg-white p-4 shadow-sm sm:p-5 md:p-6">
               <h2 className="mb-4 text-lg font-bold text-[#1F2937] sm:text-xl">
                 Choose Crust
@@ -192,7 +187,6 @@ function Menu() {
               </div>
             </section>
 
-            {/* Toppings */}
             <section className="rounded-2xl bg-white p-4 shadow-sm sm:p-5 md:p-6">
               <h2 className="mb-4 text-lg font-bold text-[#1F2937] sm:text-xl">
                 Add Toppings
@@ -229,7 +223,6 @@ function Menu() {
               </div>
             </section>
 
-            {/* Sides */}
             <section className="rounded-2xl bg-white p-4 shadow-sm sm:p-5 md:p-6">
               <h2 className="mb-4 text-lg font-bold text-[#1F2937] sm:text-xl">
                 Choose Sides
@@ -266,7 +259,6 @@ function Menu() {
               </div>
             </section>
 
-            {/* Quantity */}
             <section className="rounded-2xl bg-white p-4 shadow-sm sm:p-5 md:p-6">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
@@ -304,7 +296,6 @@ function Menu() {
             </section>
           </div>
 
-          {/* RIGHT SIDE / ORDER SUMMARY */}
           <div className="min-w-0 lg:sticky lg:top-4 lg:h-fit">
             <div className="rounded-2xl bg-white p-4 shadow-lg sm:p-5 md:p-6">
               <div className="mb-5 flex items-center gap-3">
@@ -315,7 +306,6 @@ function Menu() {
                 </h2>
               </div>
 
-              {/* Pizza */}
               <div className="border-b pb-4">
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
@@ -344,7 +334,6 @@ function Menu() {
                 )}
               </div>
 
-              {/* Quantity */}
               <div className="flex justify-between gap-3 border-b py-4">
                 <span className="text-sm text-gray-600">
                   Pizza × {quantity}
@@ -355,7 +344,6 @@ function Menu() {
                 </span>
               </div>
 
-              {/* Sides */}
               <div className="border-b py-4">
                 <div className="flex justify-between gap-3">
                   <span className="text-sm text-gray-600">Sides</span>
@@ -372,7 +360,6 @@ function Menu() {
                 )}
               </div>
 
-              {/* Delivery */}
               <div className="flex justify-between gap-3 border-b py-4">
                 <span className="text-sm text-gray-600">Delivery</span>
 
@@ -381,7 +368,6 @@ function Menu() {
                 </span>
               </div>
 
-              {/* Total */}
               <div className="mt-5 flex items-center justify-between gap-3">
                 <span className="text-lg font-bold text-gray-800">Total</span>
 
@@ -390,7 +376,6 @@ function Menu() {
                 </span>
               </div>
 
-              {/* Buttons */}
               <div className="mt-6 space-y-3">
                 <button
                   type="button"

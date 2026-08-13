@@ -20,7 +20,8 @@ function Sign() {
     const nameRegex = /^[A-Za-z\s]+$/;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneRegex = /^[0-9]{10}$/;
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/;
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/;
 
     // Name
     if (name === "") {
@@ -101,14 +102,38 @@ function Sign() {
       return;
     }
 
-    alert("Registration successful!");
+    // Check if user already exists
+    const existingUser = JSON.parse(
+      localStorage.getItem("registeredUser")
+    );
 
-    // After signup go to Login
+    if (existingUser && existingUser.email === email) {
+      alert("An account with this email already exists. Please login.");
+      navigate("/login");
+      return;
+    }
+
+    // Save user
+    const user = {
+      name,
+      email,
+      phone,
+      password,
+      gender,
+    };
+
+    localStorage.setItem(
+      "registeredUser",
+      JSON.stringify(user)
+    );
+
+    alert("Registration successful! Please login.");
+
     navigate("/login");
   };
 
   return (
-    <div className=" bg-[#F5F1EA] p-8">
+    <div className="bg-[#F5F1EA] p-8">
       <div className="mx-auto flex max-w-5xl flex-col overflow-hidden rounded-3xl bg-white shadow-2xl md:flex-row">
 
         {/* Image */}
@@ -268,7 +293,7 @@ function Sign() {
               </label>
             </div>
 
-            {/* Sign Up Button */}
+            {/* Sign Up */}
             <button
               type="submit"
               className="mt-3 w-full rounded-xl bg-orange-500 py-2 text-lg font-semibold text-white shadow-md shadow-orange-200 transition-all duration-200 hover:bg-orange-600 hover:shadow-lg hover:shadow-orange-200 active:scale-[0.98]"
@@ -276,10 +301,9 @@ function Sign() {
               Sign Up →
             </button>
 
-            {/* Login Navigation */}
+            {/* Login */}
             <p className="pt-3 text-center text-sm text-gray-600">
               Already have an account?{" "}
-
               <button
                 type="button"
                 onClick={() => navigate("/login")}
