@@ -1,80 +1,82 @@
-import login from "../assets/login.png";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import login from "../assets/login.png";
+
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const initialForm = {
+  email: "",
+  password: "",
+  remember: false,
+};
 
 function Login() {
   const navigate = useNavigate();
 
+  const [form, setForm] = useState(initialForm);
+  const [touched, setTouched] = useState({});
+  const [formError, setFormError] = useState("");
+
+  const validate = (values) => {
+    const errors = {};
+    if (!values.email.trim()) {
+      errors.email = "Please enter your email";
+    } else if (!EMAIL_REGEX.test(values.email.trim())) {
+      errors.email = "Please enter a valid email address";
+    }
+    if (!values.password) {
+      errors.password = "Please enter your password";
+    } else if (values.password.length < 8) {
+      errors.password = "Password must be at least 8 characters";
+    }
+    return errors;
+  };
+
+  const errors = useMemo(() => validate(form), [form]);
+  const isValid = Object.keys(errors).length === 0;
+
+  const handleChange = (event) => {
+    const { name, value, type, checked } = event.target;
+    setForm((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+    if (formError) setFormError("");
+  };
+
+  const handleBlur = (event) => {
+    const { name } = event.target;
+    setTouched((prev) => ({ ...prev, [name]: true }));
+  };
+
+  const showError = (field) => touched[field] && errors[field];
+
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    const form = event.target;
-
-    const email = form.email.value.trim();
-    const password = form.password.value;
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    // Email validation
-    if (email === "") {
-      alert("Please enter your email");
-      return;
-    }
-
-    if (!emailRegex.test(email)) {
-      alert("Please enter a valid email address");
-      return;
-    }
-
-    // Password validation
-    if (password === "") {
-      alert("Please enter your password");
-      return;
-    }
-
-    if (password.length < 8) {
-      alert("Password must be at least 8 characters");
-      return;
-    }
-
-    // Get registered user
-    const registeredUser = JSON.parse(
-      localStorage.getItem("registeredUser")
-    );
-
-    // No signup
+    setTouched({ email: true, password: true });
+    if (!isValid) return;
+    const email = form.email.trim();
+    const { password } = form;
+    const registeredUser = JSON.parse(localStorage.getItem("registeredUser"));
     if (!registeredUser) {
-      alert("No account found. Please sign up first.");
-      navigate("/sign");
+      setFormError("No account found. Please sign up first.");
       return;
     }
-
-    // Email check
     if (email !== registeredUser.email) {
-      alert(
-        "This email is not registered. Please sign up first."
-      );
+      setFormError("This email is not registered. Please sign up first.");
       return;
     }
-
-    // Password check
     if (password !== registeredUser.password) {
-      alert("Incorrect password. Please try again.");
+      setFormError("Incorrect password. Please try again.");
       return;
     }
-
-    // Login successful
     localStorage.setItem("isLoggedIn", "true");
-
-    alert("Login successful!");
-
     navigate("/menu");
   };
 
   return (
     <div className="h-full bg-[#F5F1EA] m-16 py-4">
       <div className="mx-auto flex max-w-4xl flex-col overflow-hidden rounded-3xl bg-white shadow-2xl md:flex-row">
-
-        {/* Image */}
         <div className="h-64 w-full md:h-auto md:w-1/2">
           <img
             src={login}
@@ -82,14 +84,9 @@ function Login() {
             className="h-full w-full object-cover"
           />
         </div>
-
-        {/* Login Form */}
         <div className="w-full bg-[#FFFDF7] p-8 md:w-1/2">
           <div className="mb-6">
-            <h2 className="text-xl font-bold text-[#1F2937]">
-              Login
-            </h2>
-
+            <h2 className="text-xl font-bold text-[#1F2937]">Login</h2>
             <p className="mt-2 text-sm text-gray-500">
               Welcome back! Please login to your account.
             </p>
@@ -98,8 +95,14 @@ function Login() {
           <form
             className="space-y-4 text-[#374151]"
             onSubmit={handleSubmit}
+            noValidate
           >
-            {/* Email */}
+            {formError && (
+              <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-2.5 text-sm text-red-600">
+                {formError}
+              </div>
+            )}
+
             <div>
               <label
                 htmlFor="email"
@@ -107,17 +110,26 @@ function Login() {
               >
                 Email
               </label>
-
               <input
                 id="email"
                 name="email"
                 type="email"
                 placeholder="Enter your email"
-                className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 outline-none transition focus:border-orange-500 focus:ring-2 focus:ring-orange-100"
+                value={form.email}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                aria-invalid={Boolean(showError("email"))}
+                className={`w-full rounded-xl border bg-white px-4 py-3 outline-none transition focus:ring-2 ${
+                  showError("email")
+                    ? "border-red-400 focus:border-red-400 focus:ring-red-100"
+                    : "border-gray-200 focus:border-orange-500 focus:ring-orange-100"
+                }`}
               />
+              {showError("email") && (
+                <p className="mt-1 text-xs text-red-500">{errors.email}</p>
+              )}
             </div>
 
-            {/* Password */}
             <div>
               <label
                 htmlFor="password"
@@ -125,15 +137,26 @@ function Login() {
               >
                 Password
               </label>
-
               <input
                 id="password"
                 name="password"
                 type="password"
                 placeholder="Enter your password"
-                className="w-full rounded-xl border border-gray-200 bg-white px-4 py-2.5 outline-none transition focus:border-orange-500 focus:ring-2 focus:ring-orange-100"
+                value={form.password}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                aria-invalid={Boolean(showError("password"))}
+                className={`w-full rounded-xl border bg-white px-4 py-2.5 outline-none transition focus:ring-2 ${
+                  showError("password")
+                    ? "border-red-400 focus:border-red-400 focus:ring-red-100"
+                    : "border-gray-200 focus:border-orange-500 focus:ring-orange-100"
+                }`}
               />
-
+              {showError("password") && (
+                <p className="mt-1 text-xs text-red-500">
+                  {errors.password}
+                </p>
+              )}
               <button
                 type="button"
                 onClick={() =>
@@ -145,32 +168,28 @@ function Login() {
               </button>
             </div>
 
-            {/* Remember Me */}
             <div className="flex items-center gap-3">
               <input
                 type="checkbox"
                 id="remember"
                 name="remember"
+                checked={form.remember}
+                onChange={handleChange}
                 className="h-4 w-4 accent-orange-500"
               />
-
-              <label
-                htmlFor="remember"
-                className="text-sm text-gray-600"
-              >
+              <label htmlFor="remember" className="text-sm text-gray-600">
                 Remember me
               </label>
             </div>
 
-            {/* Login Button */}
             <button
               type="submit"
-              className="mt-4 flex w-full items-center justify-center rounded-xl bg-orange-500 py-2.5 text-lg font-semibold text-white shadow-md shadow-orange-200 transition-all duration-200 hover:bg-orange-600 hover:shadow-lg hover:shadow-orange-200 active:scale-[0.98]"
+              disabled={!isValid}
+              className="mt-4 flex w-full items-center justify-center rounded-xl bg-orange-500 py-2.5 text-lg font-semibold text-white shadow-md shadow-orange-200 transition-all duration-200 hover:bg-orange-600 hover:shadow-lg hover:shadow-orange-200 active:scale-[0.98] disabled:cursor-not-allowed disabled:bg-gray-300 disabled:shadow-none disabled:hover:bg-gray-300"
             >
               Login →
             </button>
 
-            {/* Sign Up */}
             <p className="pt-2 text-center text-sm text-gray-600">
               Don't have an account?{" "}
               <button

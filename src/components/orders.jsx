@@ -1,13 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Pizza, Trash2 } from "lucide-react";
 
 function Orders() {
-  const [orders, setOrders] = useState([]);
-
-  useEffect(() => {
-    const savedOrders = JSON.parse(localStorage.getItem("pizzaOrders")) || [];
-    setOrders(savedOrders);
-  }, []);
+  const [orders, setOrders] = useState(
+    () => JSON.parse(localStorage.getItem("pizzaOrders")) || [],
+  );
 
   const clearOrders = () => {
     const confirmClear = window.confirm(

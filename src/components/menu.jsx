@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Pizza, Plus, Minus, RotateCcw, ShoppingCart } from "lucide-react";
+import { Plus, Minus, RotateCcw, ShoppingCart } from "lucide-react";
 
 function Menu() {
   const [size, setSize] = useState("Medium");
