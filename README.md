@@ -1,16 +1,94 @@
-# React + Vite
+# Food Ordering Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive and interactive food ordering web application built using **React 19, Vite, and Tailwind CSS**. The application provides a user-friendly interface for browsing food items, managing authentication, and tracking orders.
 
-Currently, two official plugins are available:
+## Live Link
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Link : https://food-ordering-application-tau-flax.vercel.app
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Authentication:** Sign-up and login workflows with protected routes using `ProtectedRoute`.
+- **Interactive Food Menu:** Browse food items and explore different food categories.
+- **Food Selection:** Interact with menu items and manage food selections.
+- **Order Management:** View and track placed orders.
+- **Route Protection:** Restrict access to protected pages based on authentication.
+- **Responsive Design:** Designed to work across different screen sizes.
+- **Modern UI:** Styled with Tailwind CSS and Lucide React icons.
+- **Fast Development:** Powered by Vite for a fast development server and optimized production builds.
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Frontend:** React 19, JavaScript
+- **Routing:** React Router DOM v7
+- **Styling:** Tailwind CSS, PostCSS, Autoprefixer
+- **Icons:** Lucide React
+- **Build Tool:** Vite
+
+## Getting Started
+
+### Prerequisites
+
+Make sure you have the following installed:
+
+- Node.js (v18 or higher recommended)
+- npm or Yarn
+- Git
+
+### Installation
+
+**1. Clone the repository**
+
+```bash
+git clone <YOUR_GITHUB_REPOSITORY_URL>
+```
+
+**2. Navigate to the project directory**
+
+```bash
+cd "Food-Ordering-Application-DrishtiSharma 2"
+```
+
+**3. Install dependencies**
+
+```bash
+npm install
+```
+
+**4. Start the development server**
+
+```bash
+npm run dev
+```
+
+**5. Open the application**
+
+Open the local URL displayed in your terminal, usually:
+
+```text
+http://localhost:5173
+```
+
+## Build for Production
+
+To create an optimized production build, run:
+
+```bash
+npm run build
+```
+
+To preview the production build locally, run:
+
+```bash
+npm run preview
+```
+
+## Future Improvements
+
+- Implement shopping cart functionality with quantity controls.
+- Integrate online payment functionality.
+- Connect a backend API and database for persistent data.
+- Add real-time order status updates.
+- Implement food search, sorting, and filtering.
+- Add user profiles and order history.
+- Deploy the application for public access.
